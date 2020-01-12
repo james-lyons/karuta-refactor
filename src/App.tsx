@@ -35,6 +35,7 @@ class App extends React.PureComponent<Props, State> {
         try {
             fetch(`${ API_URL }/auth/logout`, { method: 'POST', credentials: 'include' })
             await this.props.history.push('/');
+            await this.setState({ currentUser: '' })
         } catch (error) {
             this.setState({
                 error: error.message
@@ -52,7 +53,7 @@ class App extends React.PureComponent<Props, State> {
                     setCurrentUser={ this.setCurrentUser }
                     logout={ this.logout }
                 />
-                <Routes />
+                <Routes currentUser={ currentUser }/>
             </>
         );
     }

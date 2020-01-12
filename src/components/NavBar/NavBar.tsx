@@ -12,7 +12,7 @@ const NavBar = ({ currentUser, setCurrentUser, logout }: Props) => {
         <nav>
             <div>
                 <NavLink exact to='/'>Home</NavLink>
-                <NavLink to ='/game'>Play!</NavLink>
+                <NavLink to='/game'>Play!</NavLink>
             </div>
             <div>
             </div>
@@ -23,7 +23,7 @@ const NavBar = ({ currentUser, setCurrentUser, logout }: Props) => {
         <nav>
             <div>
                 <NavLink exact to='/'>Home</NavLink>
-                <NavLink to ='/game'>Play!</NavLink>
+                <NavLink to='/game'>Play!</NavLink>
             </div>
             <div>
             </div>
