@@ -8,7 +8,18 @@ interface State {
     error: null
 };
 
-class App extends React.PureComponent<{}, State> {
+interface Props {
+    history: {
+        push(url: string): void
+    };
+};
+
+class App extends React.PureComponent<Props, State> {
+
+    static defaultProps = {
+        history
+    };
+
     state: State = {
         currentUser: '',
         error: null
@@ -19,10 +30,11 @@ class App extends React.PureComponent<{}, State> {
         this.setState({ currentUser: userId });
     };
 
-    private logout = () => {
+    private logout = async () => {
         localStorage.removeItem('uid');
         try {
-            fetch(`${ API_URL }/auth/logout`, { credentials: 'include' })
+            fetch(`${ API_URL }/auth/logout`, { method: 'POST', credentials: 'include' })
+            await this.props.history.push('/');
         } catch (error) {
             this.setState({
                 error: error.message
