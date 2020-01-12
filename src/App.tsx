@@ -44,9 +44,14 @@ class App extends React.PureComponent<Props, State> {
 
     public render() {
 
+        const { currentUser  } = this.state;
         return (
             <>
-                <NavBar />
+                <NavBar
+                    currentUser={ currentUser }
+                    setCurrentUser={ this.setCurrentUser }
+                    logout={ this.logout }
+                />
                 <Routes />
             </>
         );
