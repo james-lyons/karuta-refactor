@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 import Home from '../components/Home/Home';
-import GameBoard from '../containers/GameBoard/GameBoard';
+import Game from '../containers/GameContainer/Game';
 
 interface Props {
     currentUser: string,
@@ -20,7 +20,7 @@ export default withRouter(({ currentUser }: any) => {
     return (
         <Switch>
             <Route exact path='/' component={ Home } />
-            <Route path='/game' component={ GameBoard } />
+            <Route path='/game' component={ Game } />
         </Switch>
     )
 });
