@@ -5,8 +5,43 @@ const styles = {
         height: '93vh',
         padding: '2rem'
     },
-}
+};
+
+interface State {
+    timer: Array<number>,
+    score: number,
+    decks: any,
+    cards: any,
+    shuffled_deck: any,
+    narrator_deck: any,
+    deck_id: string,
+    activated: string,
+    error: string | null
+};
+
+interface Deck {
+    card: any,
+    title?: string,
+    description?: string,
+    _id?: string | number,
+    length: any,
+    shift: any;
+    pop: any
+};
+
+interface Card {
+    card_text: string,
+    clicked?: boolean,
+    visibility?: string,
+    _id?: string | number,
+    length: any,
+    shift: any;
+    pop: any
+};
 
 export {
-    styles
+    styles,
+    State,
+    Card,
+    Deck
 };
