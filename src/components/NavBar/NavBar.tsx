@@ -1,18 +1,13 @@
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
-
-interface Props {
-    currentUser: string,
-    setCurrentUser: (userId: string) => void,
-    logout: (userId: string) => void
-};
+import { styles, Props } from './NavBar.config';
 
 const NavBar = ({ currentUser, setCurrentUser, logout }: Props) => {
     const links = (
-        <nav>
+        <nav style={ styles.navBar }>
             <div>
-                <NavLink exact to='/'>Home</NavLink>
-                <NavLink to='/game'>Play!</NavLink>
+                <NavLink exact to='/' style={ styles.navLink }>Home</NavLink>
+                <NavLink to='/game' style={ styles.navLink }>Play!</NavLink>
             </div>
             <div>
             </div>

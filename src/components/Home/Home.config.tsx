@@ -2,6 +2,7 @@ const styles = {
     body: {
         backgroundImage: 'url(https://66.media.tumblr.com/d8ee740f64f90ccb5c909f00e1434941/ad5eba72995ccbaa-4d/s1280x1920/906f1df8790b8dcec4bb4577343fb23755c7eb11.png)',
         backgroundSize: 'cover',
+        height: '93vh'
     },
     articleSection: {
         display: 'flex',
@@ -32,12 +33,13 @@ const styles = {
         display: 'flex',
         justifyContent: 'center',
         padding: 0,
-        margin: 0
+        borderRadius: '1em'
     },
     videoDiv: {
         background: 'rgba(170, 80, 70)',
-        padding: '1em',
-        borderRadius: '1em'
+        padding: '.5em',
+        marginTop: '1.5rem',
+        borderRadius: '5px'
     }
 }
 
