@@ -2,6 +2,7 @@ import React from 'react';
 import { styles, State, Card, Deck } from './Game.config';
 import GameBoard from '../../components/GameBoard/GameBoard/GameBoard';
 import ScoreBoard from '../../components/GameBoard/ScoreBoard/ScoreBoard';
+import DeckBoard from '../../components/GameBoard/DeckBoard/DeckBoard';
 import API_URL from '../../constants';
 
 class Game extends React.PureComponent<{}, State> {
@@ -163,7 +164,7 @@ class Game extends React.PureComponent<{}, State> {
     };
 
     public render() {
-        const { timer, score, narrator_deck } = this.state;
+        const { timer, score, narrator_deck, decks } = this.state;
         return (
             <div style={ styles.body }>
                 <section>
@@ -178,8 +179,11 @@ class Game extends React.PureComponent<{}, State> {
                         clickedCard={ this.clickedCard }
                     />
                 </section>
-                <section>
-                    {/* <DeckBoard /> */}
+                <section style={ styles.gameDeckAreaSection }>
+                    <DeckBoard
+                        decks={ decks }
+                        selectDeck={ this.selectDeck }
+                    />
                 </section>
             </div>
         );

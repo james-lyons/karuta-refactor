@@ -1,7 +1,11 @@
 import React from 'react';
 import { styles } from './GameBoard.config';
 
-const GameBoard = () => {
+interface Props {
+    
+}
+
+const GameBoard: React.SFC<Props>  = () => {
     return (
         <div style={ styles.gameBoard }>
             

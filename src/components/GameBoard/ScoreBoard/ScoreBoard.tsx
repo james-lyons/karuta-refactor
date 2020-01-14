@@ -1,12 +1,6 @@
 import React from 'react';
 import { styles } from './ScoreBoard.config';
 
-interface Props {
-    timer: Array <number>,
-    score: number,
-    narrator_deck: Array <Object>
-};
-
 const ScoreBoard: React.SFC<Props>  = ({ timer, score, narrator_deck }) => {
     return (
         <>
