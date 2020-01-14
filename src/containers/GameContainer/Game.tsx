@@ -1,6 +1,7 @@
 import React from 'react';
 import { styles, State, Card, Deck } from './Game.config';
 import GameBoard from '../../components/GameBoard/GameBoard/GameBoard';
+import ScoreBoard from '../../components/GameBoard/ScoreBoard/ScoreBoard';
 import API_URL from '../../constants';
 
 class Game extends React.PureComponent<{}, State> {
@@ -19,18 +20,26 @@ class Game extends React.PureComponent<{}, State> {
     public componentDidMount = async () => {
         try {
             const currentUser = localStorage.getItem('uid');
-            const starterDeckResponse = await fetch(`${ API_URL }/deck/starter`, { credentials: 'include' })
+            const starterDeckResponse = await fetch(`${ API_URL }/deck/starter`,
+                { credentials: 'include' })
+
             const starterDeck = await starterDeckResponse.json();
+
             this.setState({
                 decks: [...this.state.decks, starterDeck]
             })
+
             if (currentUser) {
-                const playerDeckResponse = await fetch(`${ API_URL }/deck/`, { credentials: 'include' })
+                const playerDeckResponse = await fetch(`${ API_URL }/deck/`,
+                    { credentials: 'include' });
+
                 const playerDeck = await playerDeckResponse.json();
+
                 this.setState({
                     decks: [...this.state.decks, playerDeck]
                 });
             };
+            
         } catch (error) {
             this.setState({
                 error: error.message
@@ -42,24 +51,27 @@ class Game extends React.PureComponent<{}, State> {
         this.setState({
             deck_id: event.target.id
         });
+
         this.state.activated === "not-active" ?
-        this.setState({activated: "active"}) :
-        this.setState({activated: "not-active"})
+        this.setState({ activated: "active" }) :
+        this.setState({ activated: "not-active" })
     };
 
     public timer = () => {
         if (this.state.narrator_deck[0].card_text === "Lets play a game...") {
             return;
         };
-        let newTimer = [...this.state.timer];
-        if (newTimer.length === 0 ) {
+
+        let newTimer = [ ...this.state.timer ];
+        if (newTimer.length === 0) {
             newTimer = [5,4,3,2,1];
-            this.setState({ timer: newTimer});
+            this.setState({ timer: newTimer });
         };
+
         setTimeout(() => {
             if (newTimer.length > 0) {
                 newTimer.shift();
-                this.setState({timer: newTimer});
+                this.setState({ timer: newTimer });
                 this.timer();
             };
         }, 1000);
@@ -92,10 +104,12 @@ class Game extends React.PureComponent<{}, State> {
         this.setState({
             narrator_deck: narrator_deck
         });
+
         setTimeout(() => {
             if (narrator_deck.length === 1) {
                 this.setState({ narrator_deck: [{ card_text: "Lets play a game..." }]})
                 return;
+
             } else if (0 < narrator_deck.length) {
                 narrator_deck.shift();
                 this.playGame(narrator_deck)
@@ -117,7 +131,9 @@ class Game extends React.PureComponent<{}, State> {
         this.setState({ score: 0 })
 
         try {
-            const response = await fetch(`${ API_URL }/deck/${ deck_id }/card`, { credentials: 'include' });
+            const response = await fetch(`${ API_URL }/deck/${ deck_id }/card`,
+                { credentials: 'include' });
+
             const cardArr = await response.json();
             
             this.setState({
@@ -147,10 +163,15 @@ class Game extends React.PureComponent<{}, State> {
     };
 
     public render() {
+        const { timer, score, narrator_deck } = this.state;
         return (
             <div style={ styles.body }>
                 <section>
-                    {/* <ScoreBoard /> */}
+                    <ScoreBoard
+                        timer={ timer }
+                        score={ score }
+                        narrator_deck={ narrator_deck }
+                    />
                     <GameBoard
                         handleGameStart={ this.handleGameStart }
                         shuffled_deck={ this.state.shuffled_deck }
