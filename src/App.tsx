@@ -2,9 +2,13 @@ import React from 'react';
 import API_URL from './constants';
 import NavBar from './components/NavBar/NavBar';
 import Routes from './routes/Routes';
+import Register from './containers/AuthContainer/RegisterContainer/Register'
+import Login from './containers/AuthContainer/LoginContainer/Login'
 
 interface State {
     currentUser: string,
+    showRegisterModal: boolean,
+    showLoginModal: boolean,
     error: null
 };
 
@@ -22,6 +26,8 @@ class App extends React.PureComponent<Props, State> {
 
     state: State = {
         currentUser: '',
+        showRegisterModal: false,
+        showLoginModal: false,
         error: null
     };
 
@@ -43,13 +49,62 @@ class App extends React.PureComponent<Props, State> {
         };
     };
 
+    loginModalSwitch = () => {
+        const { showLoginModal } = this.state
+        this.setState({
+            showLoginModal: !showLoginModal,
+            showRegisterModal: false
+        });
+    };
+    
+    registerModalSwitch = () => {
+        const { showRegisterModal } = this.state
+        this.setState({
+            showRegisterModal: !showRegisterModal,
+            showLoginModal: false
+        });
+    };
+
     public render() {
 
-        const { currentUser  } = this.state;
+        const { currentUser, showLoginModal, showRegisterModal  } = this.state;
+
+        if (showLoginModal) {
+            return (
+                <>
+                    <NavBar
+                        currentUser={ currentUser }
+                        loginModalSwitch={ this.loginModalSwitch }
+                        registerModalSwitch={ this.registerModalSwitch }
+                        setCurrentUser={ this.setCurrentUser }
+                        logout={ this.logout }
+                    />
+                    <Login />
+                </>
+            );
+        };
+
+        if (showRegisterModal) {
+            return (
+                <>
+                    <NavBar
+                        currentUser={ currentUser }
+                        loginModalSwitch={ this.loginModalSwitch }
+                        registerModalSwitch={ this.registerModalSwitch }
+                        setCurrentUser={ this.setCurrentUser }
+                        logout={ this.logout }
+                    />
+                    <Register />
+                </>
+            );
+        };
+
         return (
             <>
                 <NavBar
                     currentUser={ currentUser }
+                    loginModalSwitch={ this.loginModalSwitch }
+                    registerModalSwitch={ this.registerModalSwitch }
                     setCurrentUser={ this.setCurrentUser }
                     logout={ this.logout }
                 />

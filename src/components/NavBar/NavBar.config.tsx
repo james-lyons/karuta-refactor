@@ -56,7 +56,9 @@ const styles = {
 interface Props {
     currentUser: string,
     setCurrentUser: (userId: string) => void,
-    logout: (userId: string) => void
+    logout: (userId: string) => void,
+    registerModalSwitch: () => void,
+    loginModalSwitch: () => void,
 };
 
 export {
