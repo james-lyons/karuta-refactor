@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 import Home from '../components/Home/Home';
 import Game from '../containers/GameContainer/Game';
+import Rules from '../components/Rules/Rules';
 
 interface Props {
     currentUser: string,
@@ -21,6 +22,7 @@ export default withRouter(({ currentUser }: any) => {
         <Switch>
             <Route exact path='/' component={ Home } />
             <Route path='/game' component={ Game } />
+            <Route path='/rules' component={ Rules } />
         </Switch>
     )
 });
