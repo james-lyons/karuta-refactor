@@ -8,9 +8,34 @@ const styles = {
         height: '70vh',
         width: '80vw',
         margin: '0 auto'
+    },
+    gameBoardGameAreaDiv: {
+        display: 'grid',
+        gridTemplateColumns: '16.5% 16.5% 16.5% 16.5% 16.5% 16.5%',
+        gridTemplateRows: '30% 30% 30%',
+        justifySelf: 'center',
+        height: '60vh',
+        overflowY: 'auto'
+    },
+    playGameTopDiv: {
+        display: 'grid',
+        justifyContent: 'center',
+    },
+    startGameBtn: {
+        width: '100px',
+        padding: '.5em',
+        backgroundColor: 'cyan',
+        border: '1px solid black'
     }
-}
+};
+
+interface Props {
+    handleGameStart: Function,
+    shuffled_deck: Function,
+    clickedCard: Function
+};
 
 export { 
-    styles
+    styles,
+    Props
 };

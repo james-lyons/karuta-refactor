@@ -23,11 +23,10 @@ class Game extends React.PureComponent<{}, State> {
             const currentUser = localStorage.getItem('uid');
             const starterDeckResponse = await fetch(`${ API_URL }/deck/starter`,
                 { credentials: 'include' })
-
             const starterDeck = await starterDeckResponse.json();
 
             this.setState({
-                decks: [...this.state.decks, starterDeck]
+                decks: [...this.state.decks, starterDeck.data]
             })
 
             if (currentUser) {
@@ -127,19 +126,20 @@ class Game extends React.PureComponent<{}, State> {
     };
 
     public handleGameStart = async () => {
-        const { cards, } = this.state;
-        const deck_id = this.state.deck_id;
+        const { cards, decks, deck_id } = this.state;
         this.setState({ score: 0 })
 
         try {
-            const response = await fetch(`${ API_URL }/deck/${ deck_id }/card`,
-                { credentials: 'include' });
+            // const response = await fetch(`${ API_URL }/deck/${ deck_id }/card`,
+            //     { credentials: 'include' });
 
-            const cardArr = await response.json();
+            // const cardArr = await response.json();
             
             this.setState({
-                cards: cardArr
+                cards: decks[deck_id]
             });
+
+            console.log(1)
 
             const narrator = this.shuffleDeck([ ...cards ]);
             if (narrator.length > 18) {
@@ -160,6 +160,7 @@ class Game extends React.PureComponent<{}, State> {
             this.setState({
                 error: error.message
             });
+            console.log(error)
         };
     };
 

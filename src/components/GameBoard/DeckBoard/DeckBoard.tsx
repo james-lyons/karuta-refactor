@@ -9,6 +9,7 @@ const DeckBoard: React.SFC<Props>  = ({ decks, selectDeck }) => {
                             onClick={ selectDeck }
                             id={ deck._id }
                             style={ styles.gameDecksDiv }
+                            key={ deck._id }
                         >
                                 <h1 style={ styles.gameDecksDivH1 }>
                                     Title: { deck.title }
