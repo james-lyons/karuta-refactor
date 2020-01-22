@@ -26,7 +26,7 @@ class Game extends React.PureComponent<{}, State> {
             const starterDeck = await starterDeckResponse.json();
 
             this.setState({
-                decks: [...this.state.decks, starterDeck.data]
+                decks: [ ...this.state.decks, starterDeck.data ]
             })
 
             if (currentUser) {
@@ -36,10 +36,9 @@ class Game extends React.PureComponent<{}, State> {
                 const playerDeck = await playerDeckResponse.json();
 
                 this.setState({
-                    decks: [...this.state.decks, playerDeck]
+                    decks: [ ...this.state.decks, playerDeck ]
                 });
-            };
-            
+            }; 
         } catch (error) {
             this.setState({
                 error: error.message

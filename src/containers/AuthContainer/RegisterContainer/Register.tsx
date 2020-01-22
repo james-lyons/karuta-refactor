@@ -1,5 +1,6 @@
 import React from 'react';
 import { styles, RegisterState } from '../auth.config';
+import API_URL from '../../../constants';
 
 class Register extends React.PureComponent<{}, RegisterState> {
     state: RegisterState = {
@@ -16,30 +17,63 @@ class Register extends React.PureComponent<{}, RegisterState> {
         });
     };
 
-    private handleSubmit = (event) => {
-        event.preventDefault();
-        const newUser = this.state;
-        axios.post(`${ API_URL }/auth/register`, newUser)
-            .catch((err) => {
-                console.log(err)
-                this.setState({
-                    errors: [err.response.data]
-                });
-            });
-    };
+    // private handleSubmit = (event) => {
+    //     event.preventDefault();
+    //     const newUser = this.state;
+    //     axios.post(`${ API_URL }/auth/register`, newUser)
+    //         .catch((err) => {
+    //             console.log(err)
+    //             this.setState({
+    //                 errors: [err.response.data]
+    //             });
+    //         });
+    // };
 
+    private handleSubmit = async (event: any) => {
+        event.preventDefault();
+
+        const { username, email, password, password2 } = this.state;
+        const newUser = { username, email, password, password2 };
+
+        try {
+            let res = await fetch(`${ API_URL }/auth/register`,
+            { 
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(newUser),
+            })
+            const data = await res.json();
+            if (data.errors) {
+                this.setState({
+                    errors: data.errors
+                });
+            };
+        } catch (error) {
+            this.setState({
+                errors: error
+            });
+            console.log(error);
+        };
+    };
+    
     public render() {
+        const { username, email, password, password2, errors } = this.state;
+        
         return (
             <div>
-                { this.state.errors && this.state.errors.map((e, i) => (
+                { errors && errors.map((e, i) => (
                     <div
-                        style={{width: '100%'}} role="alert" key={ i }>
+                        style={{ width: '100%' }} role="alert" key={ i }>
                         { e.message }
                         <button data-dismiss="alert">
                             <span aria-hidden="true">&times;</span>
                         </button>    
                     </div>
                 ))}
+                { errors && console.log(errors) }
                 <section id="register">
                     <form onSubmit={ this.handleSubmit }>
                         <div>
@@ -48,7 +82,7 @@ class Register extends React.PureComponent<{}, RegisterState> {
                                 type="text"
                                 id="username"
                                 name="username"
-                                value={ this.state.username }
+                                value={ username }
                                 onChange={ this.handleChange }
                                 placeholder="Example: EatMyDust"
                             />
@@ -59,7 +93,7 @@ class Register extends React.PureComponent<{}, RegisterState> {
                                 type="email"
                                 id="email"
                                 name="email"
-                                value={ this.state.email }
+                                value={ email }
                                 onChange={ this.handleChange }
                                 placeholder="example@example.com"
                             />
@@ -70,7 +104,7 @@ class Register extends React.PureComponent<{}, RegisterState> {
                                 type="password"
                                 id="password"
                                 name="password"
-                                value={ this.state.password }
+                                value={ password }
                                 onChange={ this.handleChange }
                                 placeholder="Password"
                             />
@@ -81,7 +115,7 @@ class Register extends React.PureComponent<{}, RegisterState> {
                                 type="password"
                                 id="password2"
                                 name="password2"
-                                value={ this.state.password2 }
+                                value={ password2 }
                                 onChange={ this.handleChange }
                                 placeholder="Password"
                             />

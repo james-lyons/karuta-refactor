@@ -1,8 +1,8 @@
 import React from 'react';
-import { styles, LoginState } from '../auth.config';
+import { styles, LoginState, Props } from '../auth.config';
+import API_URL from '../../../constants';
 
-
-class Login extends React.PureComponent<{}, LoginState> {
+class Login extends React.PureComponent<Props, LoginState> {
     state: LoginState = {
         email: "",
         password: "",
@@ -15,25 +15,80 @@ class Login extends React.PureComponent<{}, LoginState> {
         });
     };
 
-    private handleSubmit = (event) => {
+    // private handleSubmit = async (event) => {
+    //     event.preventDefault();
+    //     axios.post(`${ API_URL }/auth/login`, user, { withCredentials: true })
+    //         .then((res) => {
+    //             console.log(res);
+    //             this.props.setCurrentUser(res.data.id);
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         });
+    // };
+
+    private handleSubmit = async (event: any) => {
         event.preventDefault();
-        const user = this.state;
-        axios.post(`${ API_URL }/auth/login`, user, { withCredentials: true })
-            .then((res) => {
-                console.log(res);
-                this.props.setCurrentUser(res.data.id);
-            })
-            .catch((err) => {
-                console.log(err);
+
+        const { email, password } = this.state;
+        const user = { email, password };
+        const { setCurrentUser } = this.props;
+        
+        try {
+            let res = await fetch(`${ API_URL }/auth/login`,
+                {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify(user)
+                })
+            let data = await res.json();
+            await setCurrentUser(data.id);
+            console.log(data.id)
+        } catch (error) {
+            this.setState({
+                errors: error.message
             });
+            console.log(error);
+        };
     };
 
+    // private handleSubmit = async (event: any) => {
+    //     event.preventDefault();
+
+    //     const { email, password } = this.state;
+    //     const user = { email, password };
+    //     const { setCurrentUser } = this.props;
+    //     let response;
+        
+    //     fetch(`${ API_URL }/auth/login`,
+    //         {
+    //             method: 'POST',
+    //             credentials: 'include',
+    //             headers: {
+    //                 'Content-type': 'application/json'
+    //             },
+    //             body: JSON.stringify(user)
+    //         })
+    //     .then((res) => {
+    //         response = res.json();
+    //         setCurrentUser(res);
+    //     })
+    //     .catch((err) => {
+    //         this.setState({ errors: err })
+    //     });
+    // };
+
     public render() {
+        const { email, password, errors } = this.state;
+
         return (
             <div>
-                {this.state.error && (
+                { errors && (
                     <div>
-                        { this.state.error }
+                        { errors }
                         <button type="button" data-dismiss="alert">
                             <span>&times;</span>
                         </button>
@@ -47,7 +102,7 @@ class Login extends React.PureComponent<{}, LoginState> {
                                 type="email"
                                 id="email"
                                 name="email"
-                                value={ this.state.email }
+                                value={ email }
                                 onChange={ this.handleChange }
                                 placeholder="Email"
                             />
@@ -58,7 +113,7 @@ class Login extends React.PureComponent<{}, LoginState> {
                                 type="password"
                                 id="password"
                                 name="password"
-                                value={ this.state.password }
+                                value={ password }
                                 onChange={ this.handleChange }
                                 placeholder="password"
                             />

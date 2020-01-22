@@ -1,5 +1,13 @@
 const styles = {
-
+    modalShow: {
+        position: 'fixed',
+        background: 'white',
+        width: '50vw',
+        height: '300px',
+        padding: '1rem',
+        borderRadius: '5px',
+        textAlign: 'center',
+    }
 };
 
 interface RegisterState {
@@ -16,8 +24,13 @@ interface LoginState {
     errors: Array<string>
 };
 
+interface Props {
+    setCurrentUser: () => {}
+};
+
 export {
     styles,
     RegisterState,
-    LoginState
-}
+    LoginState,
+    Props
+};

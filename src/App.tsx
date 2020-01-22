@@ -41,7 +41,7 @@ class App extends React.PureComponent<Props, State> {
         try {
             fetch(`${ API_URL }/auth/logout`, { method: 'POST', credentials: 'include' })
             await this.props.history.push('/');
-            await this.setState({ currentUser: '' })
+            await this.setState({ currentUser: '' });
         } catch (error) {
             this.setState({
                 error: error.message
@@ -68,47 +68,26 @@ class App extends React.PureComponent<Props, State> {
     public render() {
 
         const { currentUser, showLoginModal, showRegisterModal  } = this.state;
-
-        if (showLoginModal) {
-            return (
-                <>
-                    <NavBar
-                        currentUser={ currentUser }
-                        loginModalSwitch={ this.loginModalSwitch }
-                        registerModalSwitch={ this.registerModalSwitch }
-                        setCurrentUser={ this.setCurrentUser }
-                        logout={ this.logout }
-                    />
-                    <Login />
-                </>
-            );
-        };
-
-        if (showRegisterModal) {
-            return (
-                <>
-                    <NavBar
-                        currentUser={ currentUser }
-                        loginModalSwitch={ this.loginModalSwitch }
-                        registerModalSwitch={ this.registerModalSwitch }
-                        setCurrentUser={ this.setCurrentUser }
-                        logout={ this.logout }
-                    />
-                    <Register />
-                </>
-            );
-        };
+        const { setCurrentUser, loginModalSwitch, registerModalSwitch, logout } = this
 
         return (
             <>
                 <NavBar
                     currentUser={ currentUser }
-                    loginModalSwitch={ this.loginModalSwitch }
-                    registerModalSwitch={ this.registerModalSwitch }
-                    setCurrentUser={ this.setCurrentUser }
-                    logout={ this.logout }
+                    loginModalSwitch={ loginModalSwitch }
+                    registerModalSwitch={ registerModalSwitch }
+                    setCurrentUser={ setCurrentUser }
+                    logout={ logout }
                 />
-                <Routes currentUser={ currentUser }/>
+                { showLoginModal && <Login setCurrentUser={ setCurrentUser }/> }
+                { showRegisterModal && <Register /> }
+                <div style={{ background: 'black' }}>
+                    <Routes
+                        showLoginModal={ showLoginModal } 
+                        showRegisterModal={ showRegisterModal }
+                        currentUser={ currentUser }
+                    />
+                </div>
             </>
         );
     }
