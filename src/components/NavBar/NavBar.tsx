@@ -29,7 +29,7 @@ const NavBar = ({ setCurrentUser, logout, loginModalSwitch, registerModalSwitch 
             <div style={ styles.rightMenu }>
                 {/* <NavLink exact to='/' style={ styles.navLink }>Logout</NavLink> */}
                 <button onClick={() => logout() } style={ styles.navLink }>Logout</button>
-                <NavLink to='/decks' style={ styles.navLink }>Decks</NavLink>
+                <NavLink to='/deck' style={ styles.navLink }>Decks</NavLink>
                 <NavLink to='/profile' style={ styles.navLink }>Profile</NavLink>
             </div>
         </nav>

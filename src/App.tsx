@@ -81,13 +81,11 @@ class App extends React.PureComponent<Props, State> {
                 />
                 { showLoginModal && <Login setCurrentUser={ setCurrentUser }/> }
                 { showRegisterModal && <Register /> }
-                <div style={{ background: 'black' }}>
-                    <Routes
-                        showLoginModal={ showLoginModal } 
-                        showRegisterModal={ showRegisterModal }
-                        currentUser={ currentUser }
-                    />
-                </div>
+                <Routes
+                    showLoginModal={ showLoginModal } 
+                    showRegisterModal={ showRegisterModal }
+                    currentUser={ currentUser }
+                />
             </>
         );
     }
