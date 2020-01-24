@@ -6,10 +6,65 @@ const styles = {
         height: '93vh',
         width: '100vw'
     },
+    deckContainerDiv: {
+        display: 'inline-grid',
+        gridTemplateColumns: '40vw 60vw',
+        gridTemplateRows: '100%'
+    },
+    deckBuilderDiv: {
+        justifySelf: 'right'
+    },
+    deckBoardDiv: {
+        justifySelf: 'center'
+    },
+    cardEditForm: {
+        overflowY: 'auto'
+    },
+    editCardText: {
+        width: '90px'
+    },
+    editCardFormButtonsDiv: {
+        display: 'grid',
+        gridTemplateColumns: '45% 45%',
+        gridTemplateRows: '2rem',
+        fontSize: '.7rem',
+        margin: 0,
+        padding: 0
+    },
+    editCardFormBtn: {
+        justifySelf: 'center'
+    },
+    deckCards: {
+        backgroundColor: 'white',
+        width: '90%',
+        height: '200px',
+        margin: '1rem',
+        padding: '3rem 1rem',
+        border: '5px solid brown',
+        textAlign: 'center',
+        wordWrap: 'break-word',
+        overflowY: 'auto'
+    },
+    deckCardTextH1: {
+        fontSize: '1.5rem'
+    }
 };
 
 interface State {
-
+    title: string,
+    description: string,
+    card_text: string,
+    edit_title: string,
+    edit_description: string,
+    edit_card_text: string,
+    deck_id: string,
+    card_id: string,
+    cards: Array<object>,
+    decks: Array<object>,
+    deck_cards: Array<object>,
+    deck_edit_display: string,
+    card_edit_display: string,
+    errors: null | any
 };
 
 export {
